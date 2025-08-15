@@ -33,6 +33,9 @@ CREATE TABLE transactions(
 
 CREATE TABLE users (
     user_id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(30),
+    last_name VARCHAR(30),
+    user_password VARCHAR(13),
     address_id INT,
     phn_no VARCHAR(15),
     dob DATE,
