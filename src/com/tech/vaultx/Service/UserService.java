@@ -24,12 +24,18 @@ public class UserService {
     // Login to a User Profile
     public void validateUser(String password, String email) throws SQLException {
     	if (!userDAO.checkUserValidity(password, email)) {
-    		throw new IllegalArgumentException("Password Mismatched!");
+    		throw new IllegalArgumentException("User Profile not found. Password or Email Mismatched!");
     	}	
     }
     
     // Show a User Profile
     public User userDetails(String password, String email) throws SQLException {
     	return userDAO.viewProfile(email, password);
+    }
+    
+    // Delete User Profile
+    public void deleteUser(String email, String password) throws SQLException {
+    	new UserService().validateUser(password, email);
+    	userDAO.deleteProfile(email, password);
     }
 }

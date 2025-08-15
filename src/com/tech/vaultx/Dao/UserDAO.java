@@ -25,12 +25,7 @@ public class UserDAO {
         ps.setString(4, user.getPhn_no());
         ps.setString(5, user.getEmail());
         
-        int rowAffected = ps.executeUpdate();
-        
-        if(rowAffected == 0)
-			System.out.println("Unable to Insert the Data");
-		else
-			System.out.println("Data Inserted successfully");
+        ps.executeUpdate();
     }
     
     // Check a user profile exists or not
@@ -71,12 +66,25 @@ public class UserDAO {
             int id = rs.getInt("user_id");
             String first_name = rs.getString("first_name");
             String last_name = rs.getString("last_name");
-            String dob = rs.getDate("dob").toString();
+            
+            java.sql.Date date = rs.getDate(4);
+            String dob = date != null ? date.toString() : null;
+            
             String aadhar = rs.getString("aadhar_no");
             
             return new User(id, first_name, last_name, dob, aadhar);
         } else {
             return null;
         }
+    }
+    
+    // Delete user profile
+    public void deleteProfile(String email, String password) throws SQLException {
+    	String sql = "DELETE FROM users WHERE email = ? AND user_password = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+        ps.setString(2, password);
+        
+        ps.executeUpdate();
     }
 }

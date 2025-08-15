@@ -37,4 +37,14 @@ public class UserController {
     		return null;
     	}
     }
+    
+    // Delete user profile
+    public void deleteUserProfile(String email, String password) {
+    	try {
+    		userService.deleteUser(email, password);
+    		System.out.println("User Profile deleted successfully!");
+    	} catch(Exception e) {
+    		System.out.println("Error: " + e.getMessage());
+    	}
+    }
 }

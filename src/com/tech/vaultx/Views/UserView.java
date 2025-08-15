@@ -21,6 +21,7 @@ public class UserView {
 		do {
 			System.out.print("\n1.Register new user(press 1)"
 					+ "\n2.Login into user account(press 2)"
+					+ "\n3.Delete user account(press 3)"
 					+ "\nEnter your choice: ");
 			i = sc.nextInt();
 			sc.nextLine();
@@ -31,6 +32,9 @@ public class UserView {
 					break;
 				case 2:
 					userview.login(sc);
+					break;
+				case 3:
+					userview.deleteUserView(sc);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
@@ -105,7 +109,8 @@ public class UserView {
     		do {
     			System.out.print("\n1.View Profile(press 1)"
     					+ "\n2.Update User details(press 2)"
-    					+ "\n3.Delete Profile(press 3)"
+    					+ "\n3.Create a Bank Account(press 3)"
+    					+ "\n4.Login to a Bank Account(press 4)"
     					+ "\nEnter your choice: ");
     			i = sc.nextInt();
     			sc.nextLine();
@@ -123,6 +128,16 @@ public class UserView {
     			s = sc.nextLine();
     		}while(s.equalsIgnoreCase("y"));
         }
+	}
+	
+	// Delete User Profile
+	public void deleteUserView(Scanner sc) {
+		System.out.print("Enter Email: ");
+        String email = sc.nextLine();
+        System.out.print("\nEnter your password: ");
+        String password = sc.nextLine();
+        
+        usercontroller.deleteUserProfile(email, password);
 	}
 	
 	// User Profile View
