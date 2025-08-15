@@ -10,6 +10,7 @@ import com.tech.vaultx.Util.InputValidator;
 import com.tech.vaultx.Util.PasswordValidator;
 
 public class UserView {
+	private UserController usercontroller = new UserController();
 	// User operation menu
 	public static void userMenuView(Scanner sc) {
 		int i;
@@ -28,10 +29,13 @@ public class UserView {
 				case 1:
 					userview.registerUserView(sc);
 					break;
+				case 2:
+					userview.login(sc);
+					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
 					break;
-		}
+			}
 			
 			System.out.print("Do you want to proceed again?(y/n): ");
 			s = sc.nextLine();
@@ -69,7 +73,7 @@ public class UserView {
         // Strong Password Validation
         while (true) {
         	PasswordValidator.passwordMessage();
-            System.out.print("\nEnter your password: ");
+            System.out.print("\nGive a password: ");
             user_password = sc.nextLine();
 
             try {
@@ -82,6 +86,56 @@ public class UserView {
         }        
         
         User user = new User(first_name, last_name, user_password, phn_no, email);
-        new UserController().createUser(user);
+        usercontroller.createUser(user);
     }
+	
+	// Login view
+	public void login(Scanner sc) {
+		System.out.print("Enter Email: ");
+        String email = sc.nextLine();
+        System.out.print("\nEnter your password: ");
+        String password = sc.nextLine();
+        
+        if(usercontroller.loginUser(password, email)) {
+        	int i;
+    		String s;
+    		
+    		UserView userview = new UserView();
+    		
+    		do {
+    			System.out.print("\n1.View Profile(press 1)"
+    					+ "\n2.Update User details(press 2)"
+    					+ "\n3.Delete Profile(press 3)"
+    					+ "\nEnter your choice: ");
+    			i = sc.nextInt();
+    			sc.nextLine();
+    			
+    			switch(i) {
+    				case 1:
+    					userview.userProfileView(email, password);
+    					break;
+    				default:
+    					System.out.println("Sorry! Wrong choice given");
+    					break;
+    			}
+    			
+    			System.out.print("Do you want to proceed again?(y/n): ");
+    			s = sc.nextLine();
+    		}while(s.equalsIgnoreCase("y"));
+        }
+	}
+	
+	// User Profile View
+	public void userProfileView(String email, String password) {
+		User user = usercontroller.getUserProfile(password, email);
+		
+		if (user != null) {
+			System.out.print("\nUser ID: " + user.getUserId());
+			System.out.print("\nName: " + user.getFirst_name() + " " + user.getLast_name());
+			System.out.print("\nDate of Birth: " + user.getDob());
+			System.out.println("\nAadhar No: " + user.getAadhar_no());
+		} else {
+		    System.out.println("Invalid email or password");
+		}		
+	}
 }

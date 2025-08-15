@@ -20,4 +20,16 @@ public class UserService {
             throw new IllegalArgumentException("Invalid email!");
         }
     }
+    
+    // Login to a User Profile
+    public void validateUser(String password, String email) throws SQLException {
+    	if (!userDAO.checkUserValidity(password, email)) {
+    		throw new IllegalArgumentException("Password Mismatched!");
+    	}	
+    }
+    
+    // Show a User Profile
+    public User userDetails(String password, String email) throws SQLException {
+    	return userDAO.viewProfile(email, password);
+    }
 }

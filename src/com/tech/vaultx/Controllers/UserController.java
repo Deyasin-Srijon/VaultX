@@ -15,4 +15,26 @@ public class UserController {
             System.out.println("Error: " + e.getMessage());
         }
     }
+    
+    // Login to user profile
+    public boolean loginUser(String password, String email) {
+    	try {
+    		userService.validateUser(password, email);
+    		System.out.println("User Logged in successfully!");
+    		return true;
+    	} catch(Exception e) {
+    		System.out.println("Error: " + e.getMessage());
+    		return false;
+    	}
+    }
+    
+    // Give user profile
+    public User getUserProfile(String password, String email) {
+    	try {
+    		return userService.userDetails(password, email);
+    	} catch(Exception e) {
+    		System.out.println("Error: " + e.getMessage());
+    		return null;
+    	}
+    }
 }

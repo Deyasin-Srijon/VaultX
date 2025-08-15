@@ -20,7 +20,15 @@ public class User {
 		setEmail(email);
 	}
 	
-	
+	public User(int userId, String first_name, String last_name, String dob, String aadhar_no) {
+		this.userId = userId;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.dob = dob;
+		this.aadhar_no = aadhar_no;
+	}
+
+
 	public int getUserId() {
 		return userId;
 	}

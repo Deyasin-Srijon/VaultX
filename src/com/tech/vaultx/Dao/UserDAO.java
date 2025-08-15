@@ -44,4 +44,39 @@ public class UserDAO {
         
         return rs.next();
     }
+    
+    // Check login with correct email & password
+    public boolean checkUserValidity(String password, String email) throws SQLException {
+        String sql = "SELECT * FROM users WHERE email = ? AND user_password = ?";
+        
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+        ps.setString(2, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        return rs.next();
+    }
+    
+    // View user profile
+    public User viewProfile(String email, String password) throws SQLException {
+        String sql = "SELECT user_id, first_name, last_name, dob, aadhar_no FROM users WHERE email = ? AND user_password = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+        ps.setString(2, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            int id = rs.getInt("user_id");
+            String first_name = rs.getString("first_name");
+            String last_name = rs.getString("last_name");
+            String dob = rs.getDate("dob").toString();
+            String aadhar = rs.getString("aadhar_no");
+            
+            return new User(id, first_name, last_name, dob, aadhar);
+        } else {
+            return null;
+        }
+    }
 }
