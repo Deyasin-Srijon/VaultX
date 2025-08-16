@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.tech.vaultx.Models.Address;
+
 public class AddressDAO {
 	private Connection conn;
 
@@ -60,5 +62,24 @@ public class AddressDAO {
 	        
 	    ps.executeUpdate();
 			
+	}
+
+	public Address viewAddress(String email, String password) throws SQLException {
+		String city = "";
+		String state = "";
+		
+		String sql = "SELECT city, state FROM address WHERE addr_id = (SELECT address_id FROM users WHERE email = ? AND user_password = ?)";
+    	
+	    PreparedStatement ps = conn.prepareStatement(sql);
+	    ps.setString(1, email);
+	    ps.setString(2, password);
+	        
+	    ResultSet rs = ps.executeQuery();
+	    if(rs.next()) {
+	    	city = rs.getString(1);
+	    	state = rs.getString(2);
+	    }
+	    
+		return new Address(state, city);
 	}
 }

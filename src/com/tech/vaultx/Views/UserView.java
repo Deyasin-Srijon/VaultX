@@ -5,6 +5,7 @@ import java.util.Scanner;
 import com.tech.vaultx.Controllers.UserController;
 import com.tech.vaultx.CustomExceptions.WeakPasswordException;
 import com.tech.vaultx.CustomExceptions.WrongPhoneNumberException;
+import com.tech.vaultx.Models.Address;
 import com.tech.vaultx.Models.User;
 import com.tech.vaultx.Util.InputValidator;
 import com.tech.vaultx.Util.PasswordValidator;
@@ -151,6 +152,7 @@ public class UserView {
 			System.out.print("\nUser ID: " + user.getUserId());
 			System.out.print("\nName: " + user.getFirst_name() + " " + user.getLast_name());
 			System.out.print("\nDate of Birth: " + user.getDob());
+			System.out.print("\nAddress: " + user.getAddress().getCity() + ", " + user.getAddress().getState() + ", " + Address.getCountry());
 			System.out.println("\nAadhar No: " + user.getAadhar_no());
 		} else {
 		    System.out.println("Invalid email or password");

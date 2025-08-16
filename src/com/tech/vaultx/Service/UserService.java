@@ -32,7 +32,9 @@ public class UserService {
     
     // Show a User Profile
     public User userDetails(String password, String email) throws SQLException {
-    	return userDAO.viewProfile(email, password);
+    	User user = userDAO.viewProfile(email, password);
+    	user.setAddress(addrDAO.viewAddress(email, password));
+    	return user;
     }
     
     // Delete User Profile
