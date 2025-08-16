@@ -69,7 +69,7 @@ public class UserView {
             	break;
             } catch(WrongPhoneNumberException e) {
             	System.out.println(e.getMessage());
-            	InputValidator.message();
+            	InputValidator.phoneMessage();
             }   
         }
         
@@ -119,6 +119,9 @@ public class UserView {
     				case 1:
     					userview.userProfileView(email, password);
     					break;
+    				case 2:
+    					userview.profileUpdateView(sc, email, password);
+    					break;
     				default:
     					System.out.println("Sorry! Wrong choice given");
     					break;
@@ -152,5 +155,74 @@ public class UserView {
 		} else {
 		    System.out.println("Invalid email or password");
 		}		
+	}
+	
+	// User Profile Update View
+	public void profileUpdateView(Scanner sc, String email, String password) {
+		int i;
+		String s;
+		
+		UserView userview = new UserView();
+		
+		do {
+			System.out.print("\n1.Update DOB on profile(press 1)"
+					+ "\n2.Update Aadhar No on profile(press 2)"
+					+ "\n3.Update Address on profile(press 3)"
+					+ "\nEnter your choice: ");
+			i = sc.nextInt();
+			sc.nextLine();
+			
+			switch(i) {
+				case 1:
+					userview.dobUpdateView(sc, email, password);
+					break;
+				case 2:
+					userview.aadharUpdateView(sc, email, password);
+					break;
+				case 3:
+					userview.addressUpdateView(sc, email, password);
+					break;
+				default:
+					System.out.println("Sorry! Wrong choice given");
+					break;
+			}
+			
+			System.out.print("Do you want to proceed again?(y/n): ");
+			s = sc.nextLine();
+		}while(s.equalsIgnoreCase("y"));
+	}
+	
+	// User DOB update view
+	public void dobUpdateView(Scanner sc, String email, String password) {
+		String dob = "";
+		
+		do {
+			System.out.print("\nEnter your Date of Birth(yyyy-mm-dd): ");
+			dob = sc.nextLine();
+		} while(!InputValidator.check_Valid_DOB(dob));
+		
+		usercontroller.updateUserDOB(dob, email, password);
+	}
+	
+	// User Aadhar update view 
+	public void aadharUpdateView(Scanner sc, String email, String password) {
+		String aadhar = "";
+		
+		do {
+			System.out.print("\nEnter your Aadhar Card No.: ");
+			aadhar = sc.nextLine();
+		} while(!InputValidator.check_Valid_Aadhar(aadhar));
+		
+		usercontroller.updateUserAadhar(aadhar, email, password);
+	}
+	
+	// User Address update
+	public void addressUpdateView(Scanner sc, String email, String password) {
+		System.out.print("\nEnter your state: ");
+		String state = sc.nextLine();
+		System.out.print("\nEnter your city: ");
+		String city = sc.nextLine();
+		
+		usercontroller.updateUserAddress(city, state, email, password);
 	}
 }

@@ -87,4 +87,66 @@ public class UserDAO {
         
         ps.executeUpdate();
     }
+    
+    // Check if DOB is null
+    public String isDOB(String email, String password) throws SQLException {
+    	String dob = "";
+    	
+    	String sql = "SELECT dob FROM users WHERE email = ? AND user_password = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+        ps.setString(2, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next()) {
+        	java.sql.Date date = rs.getDate(1);
+        	dob = date != null ? date.toString() : null;
+        }
+        
+        return dob;
+    }
+    
+    // Update DOB in User Profile
+    public void updateDOB(String dob, String email, String password) throws SQLException {
+    	java.sql.Date dobInput = java.sql.Date.valueOf(dob);
+    	String sql = "UPDATE users SET dob = ? WHERE email = ? AND user_password = ?";
+    	
+    	PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setDate(1, dobInput);
+        ps.setString(2, email);
+        ps.setString(3, password);
+        
+        ps.executeUpdate();
+    }
+
+    // Check if Aadhar no is null
+	public String isAadhar(String email, String password) throws SQLException {
+		String aadhar = "";
+    	
+    	String sql = "SELECT aadhar_no FROM users WHERE email = ? AND user_password = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, email);
+        ps.setString(2, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next()) {
+        	aadhar = rs.getString(1);
+        }
+        
+        return aadhar;
+	}
+
+	// Update Aadhar no. on Profile
+	public void updateAadhar(String aadhar, String email, String password) throws SQLException {
+    	String sql = "UPDATE users SET aadhar_no = ? WHERE email = ? AND user_password = ?";
+    	
+    	PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, aadhar);
+        ps.setString(2, email);
+        ps.setString(3, password);
+        
+        ps.executeUpdate();
+	}
 }
