@@ -47,6 +47,7 @@ CREATE TABLE users (
 CREATE TABLE accounts (
     acc_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     user_id BIGINT NOT NULL,
+    account_no VARCHAR(10) UNIQUE,
     ifsc_code VARCHAR(11) NOT NULL,
     branch_name VARCHAR(30) NOT NULL,
     account_type ENUM('savings', 'current') NOT NULL,
