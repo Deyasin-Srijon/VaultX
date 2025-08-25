@@ -63,7 +63,7 @@ public class UserDAO {
         ResultSet rs = ps.executeQuery();
         
         if (rs.next()) {
-            int id = rs.getInt("user_id");
+            long id = rs.getLong("user_id");
             String first_name = rs.getString("first_name");
             String last_name = rs.getString("last_name");
             

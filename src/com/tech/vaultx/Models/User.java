@@ -1,7 +1,7 @@
 package com.tech.vaultx.Models;
 
 public class User {
-	private int userId;
+	private long userId;
     private String first_name;
     private String last_name;
     private String user_password;
@@ -20,7 +20,7 @@ public class User {
 		setEmail(email);
 	}
 	
-	public User(int userId, String first_name, String last_name, String dob, String aadhar_no) {
+	public User(long userId, String first_name, String last_name, String dob, String aadhar_no) {
 		this.userId = userId;
 		this.first_name = first_name;
 		this.last_name = last_name;
@@ -29,10 +29,10 @@ public class User {
 	}
 
 
-	public int getUserId() {
+	public long getUserId() {
 		return userId;
 	}
-	public void setUserId(int userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 	public String getFirst_name() {
