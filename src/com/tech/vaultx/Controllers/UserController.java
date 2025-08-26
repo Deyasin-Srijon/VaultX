@@ -23,7 +23,7 @@ public class UserController {
     		System.out.println("User Logged in successfully!");
     		return true;
     	} catch(Exception e) {
-    		System.out.println("Error: " + e.getMessage());
+    		System.out.println("\nError: " + e.getMessage());
     		return false;
     	}
     }

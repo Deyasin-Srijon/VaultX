@@ -12,6 +12,8 @@ import com.tech.vaultx.Util.PasswordValidator;
 
 public class UserView {
 	private UserController usercontroller = new UserController();
+	private AccountView accountView = new AccountView();
+	
 	// User operation menu
 	public static void userMenuView(Scanner sc) {
 		int i;
@@ -96,42 +98,48 @@ public class UserView {
 	
 	// Login view
 	public void login(Scanner sc) {
-		System.out.print("Enter Email: ");
-        String email = sc.nextLine();
-        System.out.print("\nEnter your password: ");
-        String password = sc.nextLine();
+		String email;
+		String password;
+		do {
+			System.out.print("\nEnter Email: ");
+	        email = sc.nextLine();
+	        System.out.print("Enter your password: ");
+	        password = sc.nextLine();
+		}while(!usercontroller.loginUser(password, email));
         
-        if(usercontroller.loginUser(password, email)) {
-        	int i;
-    		String s;
+        int i;
+    	String s;
     		
-    		UserView userview = new UserView();
+    	UserView userview = new UserView();
     		
-    		do {
-    			System.out.print("\n1.View Profile(press 1)"
-    					+ "\n2.Update User details(press 2)"
-    					+ "\n3.Create a Bank Account(press 3)"
-    					+ "\n4.Login to a Bank Account(press 4)"
-    					+ "\nEnter your choice: ");
-    			i = sc.nextInt();
-    			sc.nextLine();
+    	do {
+    		System.out.print("\n1.View Profile(press 1)"
+    				+ "\n2.Update User details(press 2)"
+    				+ "\n3.Create a Bank Account(press 3)"
+    				+ "\n4.Login to a Bank Account(press 4)"
+    				+ "\nEnter your choice: ");
+    		i = sc.nextInt();
+    		sc.nextLine();
     			
-    			switch(i) {
-    				case 1:
-    					userview.userProfileView(email, password);
-    					break;
-    				case 2:
-    					userview.profileUpdateView(sc, email, password);
-    					break;
-    				default:
-    					System.out.println("Sorry! Wrong choice given");
-    					break;
-    			}
+    		switch(i) {
+    			case 1:
+    				userview.userProfileView(email, password);
+    				break;
+    			case 2:
+    				userview.profileUpdateView(sc, email, password);
+    				break;
+    			case 3:
+    				User user = usercontroller.getUserProfile(password, email);
+    				accountView.newAccountView(sc, user);
+    				break;
+    			default:
+    				System.out.println("Sorry! Wrong choice given");
+    				break;
+    		}
     			
-    			System.out.print("Do you want to proceed again?(y/n): ");
-    			s = sc.nextLine();
-    		}while(s.equalsIgnoreCase("y"));
-        }
+    		System.out.print("Do you want to proceed again?(y/n): ");
+    		s = sc.nextLine();
+    	}while(s.equalsIgnoreCase("y"));
 	}
 	
 	// Delete User Profile
