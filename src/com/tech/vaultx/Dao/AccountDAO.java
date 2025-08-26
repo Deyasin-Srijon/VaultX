@@ -1,5 +1,6 @@
 package com.tech.vaultx.Dao;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -43,6 +44,45 @@ public class AccountDAO {
         
         pstmt.executeUpdate();
 	}
-    
-    
+
+	// Check login with correct account no & password
+	public boolean checkAccountValidity(long userId, String accNo, String password) throws SQLException {
+		String sql = "SELECT * FROM accounts WHERE user_id = ? AND account_no = ? AND profile_password = ?";
+        
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, userId);
+        ps.setString(2, accNo);
+        ps.setString(3, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        return rs.next();
+	}
+
+	// View Account Details
+	public Account viewAccount(long userId, String accNo, String password) throws SQLException {
+		String sql = "SELECT acc_id, user_id, account_no, ifsc_code, branch_name, account_type, amount, current_status FROM accounts WHERE user_id = ? AND account_no = ? AND profile_password = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, userId);
+        ps.setString(2, accNo);
+        ps.setString(3, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if (rs.next()) {
+            long accId = rs.getLong("acc_id");
+            long userid = rs.getLong("user_id");
+            String accountNo = rs.getString("account_no");
+            String ifsc = rs.getString("ifsc_code");
+            String branch = rs.getString("branch_name");
+            String accType = rs.getString("account_type");
+            BigDecimal amount = rs.getBigDecimal("amount");
+            String status = rs.getString("current_status");
+            
+            return new Account(accId, userid, accountNo, ifsc, branch, accType, amount, status);
+        } else {
+            return null;
+        }
+	}
 }

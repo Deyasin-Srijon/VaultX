@@ -18,4 +18,26 @@ public class AccountController {
         	System.out.print("Error: " + e.getMessage());
         }
     }
+    
+    // Login to user Bank Account
+    public boolean loginAccount(long userId, String accNo, String password) {
+    	try {
+    		accountservice.validateAccount(userId, accNo, password);
+    		System.out.println("Successfully Logged In to the Account!");
+    		return true;
+    	} catch(Exception e) {
+    		System.out.println("\nError: " + e.getMessage());
+    		return false;
+    	}
+    }
+
+    // Get an Account Details
+	public Account getAccountDetails(long userId, String accNo, String Password) {
+		try {
+    		return accountservice.accountDetails(userId, accNo, Password);
+    	} catch(Exception e) {
+    		System.out.println("Error: " + e.getMessage());
+    		return null;
+    	}
+	}
 }

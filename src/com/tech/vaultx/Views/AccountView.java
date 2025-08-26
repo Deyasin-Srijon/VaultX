@@ -75,4 +75,65 @@ public class AccountView {
         Account account = new Account(user.getUserId(), branch_name, account_type, acc_password, amount);
         accountcontroller.createAccount(account);
 	}
+
+	// Account Login view
+	public void loginAccountView(User user, Scanner sc) {
+		String accNo;
+		String accPassword;
+		do {
+			System.out.print("\nEnter Your Account No: ");
+			accNo = sc.nextLine();
+			System.out.print("Enter Your Account Password: ");
+			accPassword = sc.nextLine();
+		} while(!accountcontroller.loginAccount(user.getUserId(), accNo, accPassword));
+		
+		Account account = accountcontroller.getAccountDetails(user.getUserId(), accNo, accPassword);
+		
+		int i;
+    	String s;
+    		
+    	AccountView accountView = new AccountView();
+    		
+    	do {
+    		System.out.print("\n1.View Account Details(press 1)"
+    				+ "\nEnter your choice: ");
+    		i = sc.nextInt();
+    		sc.nextLine();
+    			
+    		switch(i) {
+    			case 1:
+    				accountView.accountView(account);
+    				break;
+    			default:
+    				System.out.println("Sorry! Wrong choice given");
+    				break;
+    		}
+    			
+    		System.out.print("Do you want to proceed again?(y/n): ");
+    		s = sc.nextLine();
+    	}while(s.equalsIgnoreCase("y"));
+	}
+
+	// Account Details View
+	public void accountView(Account account) {
+		if (account.getStatus() != "deactivated") {
+			System.out.print("\nAccount ID: " + account.getAcc_id());
+			System.out.print("\nAccount No: " + account.getAccount_no());
+			System.out.print("\nIFSC Code: " + account.getIfsc_code());
+			System.out.print("\nBranch Name: " + account.getBranch_name());
+			System.out.println("\nAccount Type: "  + account.getAccount_type());
+			if(account.getAtm() == null)
+				System.out.print("\nNote: You have Not issued any ATM Card.");
+			else
+				System.out.print("\nNote: ATM card issued on this account");
+			
+			if(account.getNetBanking() == null)
+				System.out.print("\nNote: NetBanking facility is not issued on this account");
+			else
+				System.out.println("\nNote: NetBanking facility is issued on this account");
+			
+		} else {
+		    System.out.println("Warning! Your Account Got Deactivated!");
+		}	
+	}
 }

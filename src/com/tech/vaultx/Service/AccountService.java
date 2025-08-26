@@ -20,4 +20,17 @@ public class AccountService {
         
         accountDAO.createAccountDAO(account);
 	}
+
+	// Login to a User Bank Account
+	public void validateAccount(long userId, String accNo, String password) throws SQLException {
+		if (!accountDAO.checkAccountValidity(userId, accNo, password)) {
+    		throw new IllegalArgumentException("Bank Account not found. Password or Account No Mismatched!");
+    	}
+	}
+
+	// Get Account Details
+	public Account accountDetails(long userId, String accNo, String password) throws SQLException {
+		Account account = accountDAO.viewAccount(userId, accNo, password);
+    	return account;
+	}
 }

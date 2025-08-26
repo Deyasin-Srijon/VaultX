@@ -10,8 +10,8 @@ public class Account {
 	private String branch_name;
 	private String account_type;
 	private String profile_password;
-	private int atm_id;
-	private int banking_id;
+	private ATM atm;
+	private NetBanking netbanking;
 	private BigDecimal amount;
 	private String status;
 	
@@ -24,8 +24,16 @@ public class Account {
 		this.profile_password = profile_password;
 		this.amount = amount;
 	}
-	
-	
+	public Account(long acc_id, long user_id, String account_no, String ifsc_code, String branch_name,
+			String account_type, BigDecimal amount, String status) {
+		this(user_id, branch_name, account_type, null, amount);
+		this.acc_id = acc_id;
+		this.account_no = account_no;
+		this.ifsc_code = ifsc_code;
+		this.status = status;
+	}
+
+
 	public long getAcc_id() {
 		return acc_id;
 	}
@@ -75,18 +83,18 @@ public class Account {
 		this.profile_password = profile_password;
 	}
 	
-	public int getAtm_id() {
-		return atm_id;
+	public ATM getAtm() {
+		return atm;
 	}
-	public void setAtm_id(int atm_id) {
-		this.atm_id = atm_id;
+	public void setAtm(ATM atm) {
+		this.atm = atm;
 	}
 	
-	public int getBanking_id() {
-		return banking_id;
+	public NetBanking getNetBanking() {
+		return netbanking;
 	}
-	public void setBanking_id(int banking_id) {
-		this.banking_id = banking_id;
+	public void setNetBanking(NetBanking netbanking) {
+		this.netbanking = netbanking;
 	}
 	
 	public BigDecimal getAmount() {
