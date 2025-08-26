@@ -106,6 +106,8 @@ public class UserView {
 	        System.out.print("Enter your password: ");
 	        password = sc.nextLine();
 		}while(!usercontroller.loginUser(password, email));
+		
+		User user = usercontroller.getUserProfile(password, email);
         
         int i;
     	String s;
@@ -123,14 +125,16 @@ public class UserView {
     			
     		switch(i) {
     			case 1:
-    				userview.userProfileView(email, password);
+    				userview.userProfileView(user);
     				break;
     			case 2:
     				userview.profileUpdateView(sc, email, password);
     				break;
     			case 3:
-    				User user = usercontroller.getUserProfile(password, email);
     				accountView.newAccountView(sc, user);
+    				break;
+    			case 4:
+    				accountView.loginAccountView(user, sc);
     				break;
     			default:
     				System.out.println("Sorry! Wrong choice given");
@@ -153,14 +157,13 @@ public class UserView {
 	}
 	
 	// User Profile View
-	public void userProfileView(String email, String password) {
-		User user = usercontroller.getUserProfile(password, email);
-		
+	public void userProfileView(User user) {
 		if (user != null) {
 			System.out.print("\nUser ID: " + user.getUserId());
 			System.out.print("\nName: " + user.getFirst_name() + " " + user.getLast_name());
 			System.out.print("\nDate of Birth: " + user.getDob());
-			System.out.print("\nAddress: " + user.getAddress().getCity() + ", " + user.getAddress().getState() + ", " + Address.getCountry());
+			if(user.getAddress() != null)
+				System.out.print("\nAddress: " + user.getAddress().getCity() + ", " + user.getAddress().getState() + ", " + Address.getCountry());	
 			System.out.println("\nAadhar No: " + user.getAadhar_no());
 		} else {
 		    System.out.println("Invalid email or password");
