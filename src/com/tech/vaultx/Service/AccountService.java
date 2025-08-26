@@ -1,6 +1,7 @@
 package com.tech.vaultx.Service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.tech.vaultx.Dao.AccountDAO;
 import com.tech.vaultx.Models.Account;
@@ -32,5 +33,10 @@ public class AccountService {
 	public Account accountDetails(long userId, String accNo, String password) throws SQLException {
 		Account account = accountDAO.viewAccount(userId, accNo, password);
     	return account;
+	}
+
+	// All Account List
+	public ArrayList<Account> accountList(long userId) throws SQLException {
+		return accountDAO.listAccountDAO(userId);
 	}
 }

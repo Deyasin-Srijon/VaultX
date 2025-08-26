@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.tech.vaultx.Models.Account;
 
@@ -84,5 +85,29 @@ public class AccountDAO {
         } else {
             return null;
         }
+	}
+
+	// List on Accounts on UserId
+	public ArrayList<Account> listAccountDAO(long userId) throws SQLException {
+		ArrayList<Account> accounts = new ArrayList<Account>();
+		String sql = "SELECT acc_id, ifsc_code, branch_name, account_type, current_status FROM accounts WHERE user_id = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, userId);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        while(rs.next()) {
+        	long accId = rs.getLong("acc_id");
+            String ifsc = rs.getString("ifsc_code");
+            String branch = rs.getString("branch_name");
+            String accType = rs.getString("account_type");
+            String status = rs.getString("current_status");
+            
+            Account account = new Account(accId, ifsc, branch, accType, status);
+            accounts.add(account);
+        }
+        
+        return accounts;
 	}
 }

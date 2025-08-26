@@ -119,6 +119,7 @@ public class UserView {
     				+ "\n2.Update User details(press 2)"
     				+ "\n3.Create a Bank Account(press 3)"
     				+ "\n4.Login to a Bank Account(press 4)"
+    				+ "\n5.All Bank Account on this Profile(press 5)"
     				+ "\nEnter your choice: ");
     		i = sc.nextInt();
     		sc.nextLine();
@@ -135,6 +136,9 @@ public class UserView {
     				break;
     			case 4:
     				accountView.loginAccountView(user, sc);
+    				break;
+    			case 5:
+    				accountView.listOfAccounts(user.getUserId());
     				break;
     			default:
     				System.out.println("Sorry! Wrong choice given");

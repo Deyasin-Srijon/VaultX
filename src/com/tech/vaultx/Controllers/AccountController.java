@@ -1,5 +1,7 @@
 package com.tech.vaultx.Controllers;
 
+import java.util.ArrayList;
+
 import com.tech.vaultx.Models.Account;
 import com.tech.vaultx.Service.AccountService;
 
@@ -39,5 +41,15 @@ public class AccountController {
     		System.out.println("Error: " + e.getMessage());
     		return null;
     	}
+	}
+	
+	// Get All Account for a User ID
+	public ArrayList<Account> getAccountList(long userId) {
+		try {
+			return accountservice.accountList(userId);
+		} catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+    		return null;
+		}
 	}
 }

@@ -32,8 +32,15 @@ public class Account {
 		this.ifsc_code = ifsc_code;
 		this.status = status;
 	}
-
-
+	public Account(long acc_id, String ifsc_code, String branch_name, String account_type, String status) {
+		this.acc_id = acc_id;
+		this.ifsc_code = ifsc_code;
+		this.branch_name = branch_name;
+		this.account_type = account_type;
+		this.status = status;
+	}
+	
+	
 	public long getAcc_id() {
 		return acc_id;
 	}

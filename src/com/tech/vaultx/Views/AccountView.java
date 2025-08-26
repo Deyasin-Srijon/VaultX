@@ -1,6 +1,7 @@
 package com.tech.vaultx.Views;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.tech.vaultx.Controllers.AccountController;
@@ -135,5 +136,25 @@ public class AccountView {
 		} else {
 		    System.out.println("Warning! Your Account Got Deactivated!");
 		}	
+	}
+
+	// List of all Bank Accounts for A User ID
+	public void listOfAccounts(long userId) {
+		ArrayList<Account> accounts = accountcontroller.getAccountList(userId);
+		
+		if (accounts.isEmpty()) {
+	        System.out.println("No accounts found for user ID: " + userId);
+	    } else {
+	        System.out.println("Accounts for User ID: " + userId);
+	        for (Account account : accounts) {
+	            System.out.println("\n--------------------------------------");
+	            System.out.println("Account ID     : " + account.getAcc_id());
+	            System.out.println("IFSC Code      : " + account.getIfsc_code());
+	            System.out.println("Branch Name    : " + account.getBranch_name());
+	            System.out.println("Account Type   : " + account.getAccount_type());
+	            System.out.println("Status         : " + account.getStatus());
+	        }
+	        System.out.println("\n--------------------------------------");
+	    }
 	}
 }
