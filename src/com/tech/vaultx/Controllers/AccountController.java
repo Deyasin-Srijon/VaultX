@@ -62,4 +62,14 @@ public class AccountController {
 			return false;
 		}
 	}
+
+	// Close a User Bank Account
+	public void deleteAccount(long userId, String accNo, String accPassword) {
+		try {
+			accountservice.deleteAccountService(userId, accNo, accPassword);
+    		System.out.println("Account deleted successfully!");
+    	} catch(Exception e) {
+    		System.out.println("Error: " + e.getMessage());
+    	}
+	}
 }

@@ -134,7 +134,7 @@ public class AccountView {
 				System.out.print("\nNote: ATM card issued on this account");
 			
 			if(account.getNetBanking() == null)
-				System.out.println("\nNote: NetBanking facility is not issued on this account");
+				System.out.print("\nNote: NetBanking facility is not issued on this account");
 			else
 				System.out.println("\nNote: NetBanking facility is issued on this account");
 			
@@ -161,5 +161,19 @@ public class AccountView {
 	        }
 	        System.out.println("\n--------------------------------------");
 	    }
+	}
+
+	// Delete an Account
+	public void deleteAccountView(long userId, Scanner sc) {
+		if(accountcontroller.isExistAccount(userId)) {
+			System.out.print("\nEnter Your Account No: ");
+			String accNo = sc.nextLine();
+			System.out.print("Enter Your Account Password: ");
+			String accPassword = sc.nextLine();
+			
+			accountcontroller.deleteAccount(userId, accNo, accPassword);
+		}else {
+			System.out.println("No accounts exists for user ID: " + userId);
+		}
 	}
 }

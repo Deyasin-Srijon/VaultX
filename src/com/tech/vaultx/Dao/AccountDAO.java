@@ -122,4 +122,15 @@ public class AccountDAO {
         
         return rs.next();
 	}
+
+	// Delete a Bank Account
+	public void deleteAccountDAO(long userId, String accNo, String password) throws SQLException {
+		String sql = "DELETE FROM accounts WHERE user_id = ? AND account_no = ? AND profile_password = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, userId);
+        ps.setString(2, accNo);
+        ps.setString(3, password);
+        
+        ps.executeUpdate();
+	}
 }

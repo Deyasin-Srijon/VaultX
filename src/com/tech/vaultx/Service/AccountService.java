@@ -44,4 +44,10 @@ public class AccountService {
 	public boolean checkAccountService(long userId) throws SQLException {
 		return accountDAO.checkAccountExistDAO(userId);
 	}
+
+	// Close an Account for a User
+	public void deleteAccountService(long userId, String accNo, String accPassword) throws SQLException {
+		new AccountService().validateAccount(userId, accNo, accPassword);
+		accountDAO.deleteAccountDAO(userId, accNo, accPassword);
+	}
 }
