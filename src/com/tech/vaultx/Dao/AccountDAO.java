@@ -110,4 +110,16 @@ public class AccountDAO {
         
         return accounts;
 	}
+	
+	// Check there is any account exists for a User
+	public boolean checkAccountExistDAO(long userId) throws SQLException {
+		String sql = "SELECT acc_id, ifsc_code, branch_name, account_type, current_status FROM accounts WHERE user_id = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, userId);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        return rs.next();
+	}
 }

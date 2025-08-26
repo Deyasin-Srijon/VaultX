@@ -39,4 +39,9 @@ public class AccountService {
 	public ArrayList<Account> accountList(long userId) throws SQLException {
 		return accountDAO.listAccountDAO(userId);
 	}
+
+	// Check there is any account exist for a User
+	public boolean checkAccountService(long userId) throws SQLException {
+		return accountDAO.checkAccountExistDAO(userId);
+	}
 }

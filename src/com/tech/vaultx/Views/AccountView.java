@@ -79,40 +79,45 @@ public class AccountView {
 
 	// Account Login view
 	public void loginAccountView(User user, Scanner sc) {
-		String accNo;
-		String accPassword;
-		do {
-			System.out.print("\nEnter Your Account No: ");
-			accNo = sc.nextLine();
-			System.out.print("Enter Your Account Password: ");
-			accPassword = sc.nextLine();
-		} while(!accountcontroller.loginAccount(user.getUserId(), accNo, accPassword));
-		
-		Account account = accountcontroller.getAccountDetails(user.getUserId(), accNo, accPassword);
-		
-		int i;
-    	String s;
-    		
-    	AccountView accountView = new AccountView();
-    		
-    	do {
-    		System.out.print("\n1.View Account Details(press 1)"
-    				+ "\nEnter your choice: ");
-    		i = sc.nextInt();
-    		sc.nextLine();
-    			
-    		switch(i) {
-    			case 1:
-    				accountView.accountView(account);
-    				break;
-    			default:
-    				System.out.println("Sorry! Wrong choice given");
-    				break;
-    		}
-    			
-    		System.out.print("Do you want to proceed again?(y/n): ");
-    		s = sc.nextLine();
-    	}while(s.equalsIgnoreCase("y"));
+		if(accountcontroller.isExistAccount(user.getUserId())) {
+			String accNo;
+			String accPassword;
+			do {
+				System.out.print("\nEnter Your Account No: ");
+				accNo = sc.nextLine();
+				System.out.print("Enter Your Account Password: ");
+				accPassword = sc.nextLine();
+			} while(!accountcontroller.loginAccount(user.getUserId(), accNo, accPassword));
+			
+			Account account = accountcontroller.getAccountDetails(user.getUserId(), accNo, accPassword);
+			
+			int i;
+			String s;
+			
+			AccountView accountView = new AccountView();
+			
+			do {
+				System.out.print("\n1.View Account Details(press 1)"
+						+ "\nEnter your choice: ");
+				i = sc.nextInt();
+				sc.nextLine();
+				
+				switch(i) {
+				case 1:
+					accountView.accountView(account);
+					break;
+				default:
+					System.out.println("Sorry! Wrong choice given");
+					break;
+				}
+				
+				System.out.print("Do you want to proceed again?(y/n): ");
+				s = sc.nextLine();
+			}while(s.equalsIgnoreCase("y"));
+		}
+		else {
+			System.out.println("No accounts exists for user ID: " + user.getUserId());
+		}
 	}
 
 	// Account Details View
@@ -129,7 +134,7 @@ public class AccountView {
 				System.out.print("\nNote: ATM card issued on this account");
 			
 			if(account.getNetBanking() == null)
-				System.out.print("\nNote: NetBanking facility is not issued on this account");
+				System.out.println("\nNote: NetBanking facility is not issued on this account");
 			else
 				System.out.println("\nNote: NetBanking facility is issued on this account");
 			

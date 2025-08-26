@@ -120,6 +120,7 @@ public class UserView {
     				+ "\n3.Create a Bank Account(press 3)"
     				+ "\n4.Login to a Bank Account(press 4)"
     				+ "\n5.All Bank Account on this Profile(press 5)"
+    				+ "\n6.Delete an Account(press 6)"
     				+ "\nEnter your choice: ");
     		i = sc.nextInt();
     		sc.nextLine();

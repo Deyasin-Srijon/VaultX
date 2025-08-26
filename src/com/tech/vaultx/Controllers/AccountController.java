@@ -52,4 +52,14 @@ public class AccountController {
     		return null;
 		}
 	}
+
+	// Check is there account exists for A user
+	public boolean isExistAccount(long userId) {
+		try {
+			return accountservice.checkAccountService(userId);
+		} catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+			return false;
+		}
+	}
 }
