@@ -133,4 +133,30 @@ public class AccountDAO {
         
         ps.executeUpdate();
 	}
+	
+	// Get PassWord of an Account
+	public String previousPasswordDAO(Account account) throws SQLException {
+		String password = "";
+		String sql = "SELECT profile_password FROM accounts WHERE acc_id = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, account.getAcc_id());
+        
+        ResultSet rs = ps.executeQuery();
+        if(rs.next())
+        	password = rs.getString("profile_password");
+        
+		return password;
+	}
+
+	// Update Account Password
+	public void updatePasswordDAO(String password, Account account) throws SQLException {
+		String sql = "UPDATE accounts SET profile_password = ? WHERE acc_id = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+		ps.setString(1, password);
+		ps.setLong(2, account.getAcc_id());
+		
+		ps.executeUpdate();
+	}
 }

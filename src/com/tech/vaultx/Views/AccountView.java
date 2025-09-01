@@ -98,6 +98,7 @@ public class AccountView {
 			
 			do {
 				System.out.print("\n1.View Account Details(press 1)"
+						+ "\n2. Update Account Password(press 2)"
 						+ "\nEnter your choice: ");
 				i = sc.nextInt();
 				sc.nextLine();
@@ -105,6 +106,9 @@ public class AccountView {
 				switch(i) {
 				case 1:
 					accountView.accountView(account);
+					break;
+				case 2:
+					accountView.updateAccountPasswordView(sc, account);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
@@ -141,6 +145,27 @@ public class AccountView {
 		} else {
 		    System.out.println("Warning! Your Account Got Deactivated!");
 		}	
+	}
+	
+	// Update Account Type View
+	public void updateAccountPasswordView(Scanner sc, Account account) {
+		String password;
+        // Strong Password Validation
+        while (true) {
+        	PasswordValidator.passwordMessage();
+            System.out.print("\nGive a new password for you account: ");
+            password = sc.nextLine();
+
+            try {
+                PasswordValidator.check_Strong_Password(password);
+                System.out.println("Password accepted");
+                break;
+            } catch (WeakPasswordException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
+        accountcontroller.updateAccountPassword(password, account);
 	}
 
 	// List of all Bank Accounts for A User ID

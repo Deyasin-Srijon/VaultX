@@ -50,4 +50,12 @@ public class AccountService {
 		new AccountService().validateAccount(userId, accNo, accPassword);
 		accountDAO.deleteAccountDAO(userId, accNo, accPassword);
 	}
+
+	// Update Account Password
+	public void updatePasswordService(String password, Account account) throws SQLException {
+		if(accountDAO.previousPasswordDAO(account).equals(password))
+			throw new IllegalArgumentException("Password can't same as previous");
+		else
+			accountDAO.updatePasswordDAO(password, account);
+	}
 }

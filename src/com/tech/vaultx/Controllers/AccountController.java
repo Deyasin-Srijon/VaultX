@@ -72,4 +72,13 @@ public class AccountController {
     		System.out.println("Error: " + e.getMessage());
     	}
 	}
+
+	public void updateAccountPassword(String password, Account account) {
+		try {
+			accountservice.updatePasswordService(password, account);
+    		System.out.println("Account password updated successfully!");
+		} catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+		}
+	}
 }
