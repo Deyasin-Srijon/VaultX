@@ -13,6 +13,7 @@ import com.tech.vaultx.Util.PasswordValidator;
 
 public class AccountView {
 	private AccountController accountcontroller = new AccountController();
+	private ATMView atmView = new ATMView();
 	
 	// Open A New Account View
 	public void newAccountView(Scanner sc, User user) {
@@ -99,6 +100,7 @@ public class AccountView {
 			do {
 				System.out.print("\n1.View Account Details(press 1)"
 						+ "\n2. Update Account Password(press 2)"
+						+ "\n3. Issue a new ATM card(press 3)"
 						+ "\nEnter your choice: ");
 				i = sc.nextInt();
 				sc.nextLine();
@@ -109,6 +111,9 @@ public class AccountView {
 					break;
 				case 2:
 					accountView.updateAccountPasswordView(sc, account);
+					break;
+				case 3:
+					atmView.newATMView(sc, account);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
@@ -138,7 +143,7 @@ public class AccountView {
 				System.out.print("\nNote: ATM card issued on this account");
 			
 			if(account.getNetBanking() == null)
-				System.out.print("\nNote: NetBanking facility is not issued on this account");
+				System.out.println("\nNote: NetBanking facility is not issued on this account");
 			else
 				System.out.println("\nNote: NetBanking facility is issued on this account");
 			

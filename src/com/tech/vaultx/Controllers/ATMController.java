@@ -1,5 +1,25 @@
 package com.tech.vaultx.Controllers;
 
+import com.tech.vaultx.Models.ATM;
+import com.tech.vaultx.Models.Account;
+import com.tech.vaultx.Service.ATMService;
+
 public class ATMController {
+	private ATMService atmService = new ATMService();
+	
+	// Issue New ATM Card 
+	public void issueATMCard(ATM atm, Account account) {
+		try {
+			atmService.issueNewCardService(atm, account);
+			System.out.println("\nAccount created successfully!");
+			account.setAtm(atm);
+			System.out.print("\nATM Card No.: " + atm.getCard_no());
+            System.out.print("\nCVV: " + atm.getCvv());
+            System.out.println("\nExpiry Date: " + atm.getExp_date());
+            System.out.println("\nNote: It is recommended that please write down this info and Don't share this info to anyone.");
+		}catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
 
 }

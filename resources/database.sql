@@ -1,4 +1,4 @@
-CREATE DATABASE vaultx;
+-- CREATE DATABASE vaultx;
 use vaultx;
 
 CREATE TABLE address(
@@ -11,9 +11,10 @@ CREATE TABLE address(
 
 CREATE TABLE atm(
     atm_id INT AUTO_INCREMENT,
-    card_no CHAR(16) NOT NULL,
+    card_no CHAR(16) NOT NULL UNIQUE,
     cvv CHAR(3) NOT NULL,
-    exp_date DATE NOT NULL,
+    exp_date VARCHAR(10) NOT NULL,
+    pincode VARCHAR(6) NOT NULL,
     PRIMARY KEY(atm_id)
 );
 

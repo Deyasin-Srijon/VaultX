@@ -73,6 +73,7 @@ public class AccountController {
     	}
 	}
 
+	// update Account password
 	public void updateAccountPassword(String password, Account account) {
 		try {
 			accountservice.updatePasswordService(password, account);

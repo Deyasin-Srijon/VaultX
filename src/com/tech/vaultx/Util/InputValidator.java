@@ -1,5 +1,6 @@
 package com.tech.vaultx.Util;
 
+import com.tech.vaultx.CustomExceptions.InValidPinCode;
 import com.tech.vaultx.CustomExceptions.NonValidAadharNo;
 import com.tech.vaultx.CustomExceptions.WrongDOBInput;
 import com.tech.vaultx.CustomExceptions.WrongPhoneNumberException;
@@ -84,6 +85,18 @@ public class InputValidator {
 				throw new NonValidAadharNo("Aadhar No. should be of 12 digits.");
 			return true;
 		} catch(NonValidAadharNo e){
+			System.out.println(e.getMessage());
+			return false;
+		}
+	}
+	
+	// Valid 6 digit pin
+	public static boolean check_Valid_Pin(String pincode) {
+		try {
+			if(!pincode.matches("\\d{6}"))
+				throw new InValidPinCode("Pin Code should be of 6 digits.");
+			return true;
+		} catch(InValidPinCode e){
 			System.out.println(e.getMessage());
 			return false;
 		}
