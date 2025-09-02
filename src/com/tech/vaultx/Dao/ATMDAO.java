@@ -69,4 +69,14 @@ public class ATMDAO {
 		else
 			return null;
 	}
+
+	// Block ATM Card
+	public void blockATMCardDAO(Account account) throws SQLException {
+		String sql = "DELETE FROM atm WHERE atm_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setInt(1, account.getAtm().getAtm_id());
+        
+        ps.executeUpdate();
+	}
 }

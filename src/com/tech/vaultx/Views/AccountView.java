@@ -120,6 +120,9 @@ public class AccountView {
 				case 4:
 					atmView.atmDetailsView(sc, account);
 					break;
+				case 5:
+					atmView.blockCardView(sc, account);
+					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
 					break;

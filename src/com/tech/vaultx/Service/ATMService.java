@@ -39,4 +39,10 @@ public class ATMService {
 	public ATM atmDetailsService(int atm_id) throws SQLException {
 		return atmDAO.atmDetailsDAO(atm_id);
 	}
+
+	// Block ATM card
+	public void blockATMCardService(Account account) throws SQLException {
+		atmDAO.blockATMCardDAO(account);
+		account.setAtm(null);
+	}
 }

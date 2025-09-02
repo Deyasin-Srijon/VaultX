@@ -51,4 +51,23 @@ public class ATMView {
 			}
 		}
 	}
+
+	// Block a ATM card
+	public void blockCardView(Scanner sc, Account account) {
+		if(account.getAtm() == null)
+			System.out.println("Note: ATM Card is not issued on this Account");
+		else {
+			while(true) {
+				System.out.print("\nEnter Your ATM PinCode: ");
+				String pincode = sc.nextLine();
+				
+				if(pincode.equals(account.getAtm().getPincode())) {
+					atmController.blockATMCard(account);
+					break;
+				} else {
+					System.out.println("Warning: Please Enter Correct Password");
+				}
+			}
+		}
+	}
 }

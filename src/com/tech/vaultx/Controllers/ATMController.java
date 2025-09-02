@@ -35,4 +35,14 @@ public class ATMController {
 			}
 		}
 	}
+
+	// Block ATM card
+	public void blockATMCard(Account account) {
+		try {
+			atmService.blockATMCardService(account);
+			System.out.println("\nATM Card Blocked Successfully!");
+		} catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
 }
