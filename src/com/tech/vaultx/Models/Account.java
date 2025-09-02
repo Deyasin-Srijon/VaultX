@@ -25,11 +25,13 @@ public class Account {
 		this.amount = amount;
 	}
 	public Account(long acc_id, long user_id, String account_no, String ifsc_code, String branch_name,
-			String account_type, BigDecimal amount, String status) {
+			String account_type, ATM atm, NetBanking netbanking, BigDecimal amount, String status) {
 		this(user_id, branch_name, account_type, null, amount);
 		this.acc_id = acc_id;
 		this.account_no = account_no;
 		this.ifsc_code = ifsc_code;
+		this.atm = atm;
+		this.netbanking = netbanking;
 		this.status = status;
 	}
 	public Account(long acc_id, String ifsc_code, String branch_name, String account_type, String status) {

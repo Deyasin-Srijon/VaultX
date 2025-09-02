@@ -22,4 +22,17 @@ public class ATMController {
 		}
 	}
 
+	// ATM Card Details
+	public ATM getATMDetails(int atm_id) {
+		if(atm_id == 0)
+			return null;
+		else {
+			try {
+				return atmService.atmDetailsService(atm_id);
+			} catch(Exception e) {
+				System.out.print("Error: " + e.getMessage());
+				return null;
+			}
+		}
+	}
 }

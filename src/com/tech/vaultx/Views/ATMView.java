@@ -30,4 +30,25 @@ public class ATMView {
 			atmController.issueATMCard(atm, account);
 		}
 	}
+
+	// ATM card Details View 
+	public void atmDetailsView(Scanner sc, Account account) {
+		if(account.getAtm() == null)
+			System.out.println("Note: ATM Card is not issued on this Account");
+		else {
+			while(true) {
+				System.out.print("\nEnter Your ATM PinCode: ");
+				String pincode = sc.nextLine();
+				
+				if(pincode.equals(account.getAtm().getPincode())) {
+					System.out.println("\nATM Card NO: " + account.getAtm().getCard_no());
+					System.out.println("CVV: " + account.getAtm().getCvv());
+					System.out.println("Expiry Date: " + account.getAtm().getExp_date());
+					break;
+				} else {
+					System.out.println("Warning: Please Enter Correct Password");
+				}
+			}
+		}
+	}
 }

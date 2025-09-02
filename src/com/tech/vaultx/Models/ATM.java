@@ -11,8 +11,16 @@ public class ATM {
     public ATM(String pincode) {
     	this.pincode = pincode;
     }
-    
-    
+	public ATM(int atm_id, String card_no, String cvv, String exp_date, String pincode) {
+		this.atm_id = atm_id;
+		this.card_no = card_no;
+		this.cvv = cvv;
+		this.exp_date = exp_date;
+		this.pincode = pincode;
+	}
+
+
+
 	public int getAtm_id() {
 		return atm_id;
 	}

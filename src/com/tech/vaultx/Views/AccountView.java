@@ -98,10 +98,12 @@ public class AccountView {
 			AccountView accountView = new AccountView();
 			
 			do {
-				System.out.print("\n1.View Account Details(press 1)"
+				System.out.print("\n1. View Account Details(press 1)"
 						+ "\n2. Update Account Password(press 2)"
 						+ "\n3. Issue a new ATM card(press 3)"
-						+ "\nEnter your choice: ");
+						+ "\n4. ATM Card Details(press 4)"
+						+ "\n5. Block ATM Card(press 5)"
+						+ "\nEnter your choice: "); 
 				i = sc.nextInt();
 				sc.nextLine();
 				
@@ -114,6 +116,9 @@ public class AccountView {
 					break;
 				case 3:
 					atmView.newATMView(sc, account);
+					break;
+				case 4:
+					atmView.atmDetailsView(sc, account);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");

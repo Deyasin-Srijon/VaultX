@@ -8,9 +8,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.tech.vaultx.Models.Account;
+import com.tech.vaultx.Controllers.ATMController;
+import com.tech.vaultx.Models.ATM;
 
 public class AccountDAO {
 	private Connection conn;
+	private ATMController atmController = new ATMController();
 
     public AccountDAO() {
         conn = DBConnection.getConnection();
@@ -62,7 +65,7 @@ public class AccountDAO {
 
 	// View Account Details
 	public Account viewAccount(long userId, String accNo, String password) throws SQLException {
-		String sql = "SELECT acc_id, user_id, account_no, ifsc_code, branch_name, account_type, amount, current_status FROM accounts WHERE user_id = ? AND account_no = ? AND profile_password = ?";
+		String sql = "SELECT acc_id, user_id, account_no, ifsc_code, branch_name, account_type, atm_id, banking_id, amount, current_status FROM accounts WHERE user_id = ? AND account_no = ? AND profile_password = ?";
 		
 		PreparedStatement ps = conn.prepareStatement(sql);
         ps.setLong(1, userId);
@@ -78,10 +81,14 @@ public class AccountDAO {
             String ifsc = rs.getString("ifsc_code");
             String branch = rs.getString("branch_name");
             String accType = rs.getString("account_type");
+            int atm_id = rs.getInt("atm_id");
+            int banking_id = rs.getInt("banking_id");
             BigDecimal amount = rs.getBigDecimal("amount");
             String status = rs.getString("current_status");
             
-            return new Account(accId, userid, accountNo, ifsc, branch, accType, amount, status);
+			ATM atm = atmController.getATMDetails(atm_id);
+            
+            return new Account(accId, userid, accountNo, ifsc, branch, accType, atm, null, amount, status);
         } else {
             return null;
         }

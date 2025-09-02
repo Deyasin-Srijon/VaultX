@@ -12,7 +12,8 @@ import com.tech.vaultx.Util.RandomNoGenerator;
 public class ATMService {
 	private ATMDAO atmDAO = new ATMDAO();
 
-	public void issueNewCardService(ATM atm, Account account) throws SQLException{
+	// New Card Issue Service
+	public void issueNewCardService(ATM atm, Account account) throws SQLException {
 		String cardno;
         do {
             cardno = RandomNoGenerator.randomNoGenerator(16);
@@ -34,4 +35,8 @@ public class ATMService {
         atmDAO.newCardDAO(atm, account);
 	}
 
+	// ATM card Details Service
+	public ATM atmDetailsService(int atm_id) throws SQLException {
+		return atmDAO.atmDetailsDAO(atm_id);
+	}
 }

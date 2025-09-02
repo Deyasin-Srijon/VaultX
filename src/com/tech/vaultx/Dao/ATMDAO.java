@@ -48,4 +48,25 @@ public class ATMDAO {
 
 	    ps.executeUpdate();
 	}
+
+	// ATM Card Details 
+	public ATM atmDetailsDAO(int atm_id) throws SQLException {
+		String sql = "SELECT * FROM atm WHERE atm_id = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+		
+		ps.setInt(1, atm_id);
+		
+		ResultSet rs = ps.executeQuery();
+		if(rs.next()) {
+			String card_no = rs.getString("card_no");
+			String cvv = rs.getString("cvv");
+			String exp_date = rs.getString("exp_date");
+			String pincode = rs.getString("pincode");
+			
+			return new ATM(atm_id, card_no, cvv, exp_date, pincode);
+		}
+		else
+			return null;
+	}
 }
