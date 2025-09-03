@@ -8,12 +8,15 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.tech.vaultx.Models.Account;
+import com.tech.vaultx.Models.NetBanking;
 import com.tech.vaultx.Controllers.ATMController;
+import com.tech.vaultx.Controllers.NetBankingController;
 import com.tech.vaultx.Models.ATM;
 
 public class AccountDAO {
 	private Connection conn;
 	private ATMController atmController = new ATMController();
+	private NetBankingController netbankingcontroller = new NetBankingController();
 
     public AccountDAO() {
         conn = DBConnection.getConnection();
@@ -87,8 +90,9 @@ public class AccountDAO {
             String status = rs.getString("current_status");
             
 			ATM atm = atmController.getATMDetails(atm_id);
+			NetBanking netbanking = netbankingcontroller.getNetBankingDetails(banking_id);
             
-            return new Account(accId, userid, accountNo, ifsc, branch, accType, atm, null, amount, status);
+            return new Account(accId, userid, accountNo, ifsc, branch, accType, atm, netbanking, amount, status);
         } else {
             return null;
         }

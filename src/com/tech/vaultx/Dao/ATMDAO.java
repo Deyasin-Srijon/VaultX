@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import com.tech.vaultx.Models.ATM;
 import com.tech.vaultx.Models.Account;
@@ -31,7 +32,7 @@ public class ATMDAO {
 	public void newCardDAO(ATM atm, Account account) throws SQLException {
 		String sql1 = "INSERT INTO atm (card_no, cvv, exp_date, pincode) VALUES (?, ?, ?, ?)";
 
-	    PreparedStatement ps = conn.prepareStatement(sql1);
+		PreparedStatement ps = conn.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
 
 	    ps.setString(1, atm.getCard_no());
 	    ps.setString(2, atm.getCvv());
@@ -39,6 +40,14 @@ public class ATMDAO {
 	    ps.setString(4, atm.getPincode());
 
 	    ps.executeUpdate();
+	    
+	    // Get the generated ATM ID
+	    ResultSet rs = ps.getGeneratedKeys();
+	    int atm_id = 0;
+	    if (rs.next()) {
+	    	atm_id = rs.getInt(1);
+	        atm.setAtm_id(atm_id);
+	    }
 	    
 	    String sql2 = "UPDATE accounts SET atm_id = LAST_INSERT_ID() WHERE acc_id = ?";
 	    
@@ -76,6 +85,17 @@ public class ATMDAO {
         PreparedStatement ps = conn.prepareStatement(sql);
         
         ps.setInt(1, account.getAtm().getAtm_id());
+        
+        ps.executeUpdate();
+	}
+
+	// Update pincode of ATM Card
+	public void updatePincodeDAO(ATM atm, String pincode) throws SQLException {
+		String sql = "UPDATE atm SET pincode = ? WHERE atm_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setString(1, pincode);
+        ps.setInt(2, atm.getAtm_id());
         
         ps.executeUpdate();
 	}

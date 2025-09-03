@@ -20,7 +20,6 @@ public class ATM {
 	}
 
 
-
 	public int getAtm_id() {
 		return atm_id;
 	}
@@ -51,5 +50,8 @@ public class ATM {
 
 	public String getPincode() {
 		return pincode;
+	}
+	public void setPincode(String pincode) {
+		this.pincode = pincode;
 	}
 }

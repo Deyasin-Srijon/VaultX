@@ -14,6 +14,7 @@ import com.tech.vaultx.Util.PasswordValidator;
 public class AccountView {
 	private AccountController accountcontroller = new AccountController();
 	private ATMView atmView = new ATMView();
+	private NetBankingView netbankingview = new NetBankingView();
 	
 	// Open A New Account View
 	public void newAccountView(Scanner sc, User user) {
@@ -102,7 +103,9 @@ public class AccountView {
 						+ "\n2. Update Account Password(press 2)"
 						+ "\n3. Issue a new ATM card(press 3)"
 						+ "\n4. ATM Card Details(press 4)"
-						+ "\n5. Block ATM Card(press 5)"
+						+ "\n5. ATM Service(press 5)"
+						+ "\n6. Block ATM Card(press 6)"
+						+ "\n7. NetBanking Service Activation(press 7)"
 						+ "\nEnter your choice: "); 
 				i = sc.nextInt();
 				sc.nextLine();
@@ -121,7 +124,13 @@ public class AccountView {
 					atmView.atmDetailsView(sc, account);
 					break;
 				case 5:
+					atmView.atmFuncView(sc, account.getAtm());
+					break;
+				case 6:
 					atmView.blockCardView(sc, account);
+					break;
+				case 7:
+					netbankingview.newNetBankingView(sc, account);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");

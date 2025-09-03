@@ -45,4 +45,14 @@ public class ATMController {
 			System.out.print("Error: " + e.getMessage());
 		}
 	}
+
+	// Change ATM pincode
+	public void changePincode(ATM atm, String pincode) {
+		try {
+			atmService.changePincodeService(atm, pincode);
+			System.out.println("\nATM Card PinCode changed Successfully!");
+		}catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
 }

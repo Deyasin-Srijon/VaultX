@@ -70,4 +70,54 @@ public class ATMView {
 			}
 		}
 	}
+
+	// ATM functionality view
+	public void atmFuncView(Scanner sc, ATM atm) {
+		if(atm == null)
+			System.out.println("Note: ATM Card is not issued on this Account");
+		else {
+			System.out.println("\nWelcome to VaultX ATM Service");
+			int i;
+			String s;
+			
+			ATMView atmView = new ATMView();
+			
+			do {
+				System.out.print("\n1. Change Pin Code(press 1)"
+						+ "\nEnter your choice: "); 
+				i = sc.nextInt();
+				sc.nextLine();
+				
+				switch(i) {
+				case 1:
+					atmView.changeATMPinView(sc, atm);
+					break;
+				default:
+					System.out.println("Sorry! Wrong choice given");
+					break;
+				}
+				
+				System.out.print("Do you want to proceed again?(y/n): ");
+				s = sc.nextLine();
+			}while(s.equalsIgnoreCase("y"));
+		}
+	}
+
+	// ATM PINCode Change View
+	public void changeATMPinView(Scanner sc, ATM atm) {
+		String pincode;
+		
+		while(true) {
+			System.out.print("Give a 6 digit pin for your atm card: ");
+			pincode = sc.nextLine();
+			
+			if(InputValidator.check_Valid_Pin(pincode)) {
+				if(pincode.equals(atm.getPincode()))
+					System.out.println("\nNote: Pincode can't same as previous");
+				else
+					break;
+			}
+		}
+		atmController.changePincode(atm, pincode);
+	}
 }

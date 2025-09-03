@@ -1,4 +1,4 @@
--- CREATE DATABASE vaultx;
+CREATE DATABASE vaultx;
 use vaultx;
 
 CREATE TABLE address(

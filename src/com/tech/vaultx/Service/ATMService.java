@@ -45,4 +45,10 @@ public class ATMService {
 		atmDAO.blockATMCardDAO(account);
 		account.setAtm(null);
 	}
+
+	// Change ATM pincode
+	public void changePincodeService(ATM atm, String pincode) throws SQLException {
+		atmDAO.updatePincodeDAO(atm, pincode);
+		atm.setPincode(pincode);
+	}
 }
