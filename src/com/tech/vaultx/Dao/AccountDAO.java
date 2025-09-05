@@ -170,4 +170,42 @@ public class AccountDAO {
 		
 		ps.executeUpdate();
 	}
+	
+	// Is ATM Service Activated In Account
+	public int isATMActivated(long userId, String accNo, String password) throws SQLException {
+		int atm_id = 0;
+		String sql = "SELECT atm_id FROM accounts WHERE user_id = ? AND account_no = ? AND profile_password = ?";
+		
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, userId);
+        ps.setString(2, accNo);
+        ps.setString(3, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next()) {
+        	atm_id = rs.getInt("atm_id");
+        }
+        
+		return atm_id;
+	}
+	
+	// Is NetBanking Service Activated in Account
+	public int isNetBankingActivated(long userId, String accNo, String password) throws SQLException {
+		int banking_id = 0;
+		String sql = "SELECT banking_id FROM accounts WHERE user_id = ? AND account_no = ? AND profile_password = ?";
+		
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setLong(1, userId);
+        ps.setString(2, accNo);
+        ps.setString(3, password);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        if(rs.next()) {
+        	banking_id = rs.getInt("banking_id");
+        }
+        
+		return banking_id;
+	}
 }

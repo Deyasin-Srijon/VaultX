@@ -42,7 +42,7 @@ public class ATMService {
 
 	// Block ATM card
 	public void blockATMCardService(Account account) throws SQLException {
-		atmDAO.blockATMCardDAO(account);
+		atmDAO.blockATMCardDAO(account.getAtm().getAtm_id());
 		account.setAtm(null);
 	}
 

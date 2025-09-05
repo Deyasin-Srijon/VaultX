@@ -3,12 +3,16 @@ package com.tech.vaultx.Service;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import com.tech.vaultx.Dao.ATMDAO;
 import com.tech.vaultx.Dao.AccountDAO;
+import com.tech.vaultx.Dao.NetBankingDAO;
 import com.tech.vaultx.Models.Account;
 import com.tech.vaultx.Util.RandomNoGenerator;
 
 public class AccountService {
 	private AccountDAO accountDAO = new AccountDAO();
+	private ATMDAO atmDAO = new ATMDAO();
+	private NetBankingDAO netbankingDAO = new NetBankingDAO();
 	
 	// Register new Account 
 	public void registerAccount(Account account) throws SQLException{
@@ -48,6 +52,13 @@ public class AccountService {
 	// Close an Account for a User
 	public void deleteAccountService(long userId, String accNo, String accPassword) throws SQLException {
 		new AccountService().validateAccount(userId, accNo, accPassword);
+		int atm_id = accountDAO.isATMActivated(userId, accNo, accPassword);
+		if(atm_id != 0)
+			atmDAO.blockATMCardDAO(atm_id);
+		
+		int banking_id = accountDAO.isNetBankingActivated(userId, accNo, accPassword);
+		if(banking_id != 0)
+			netbankingDAO.deactivateNetBankingDAO(banking_id);
 		accountDAO.deleteAccountDAO(userId, accNo, accPassword);
 	}
 

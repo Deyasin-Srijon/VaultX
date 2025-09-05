@@ -106,6 +106,8 @@ public class AccountView {
 						+ "\n5. ATM Service(press 5)"
 						+ "\n6. Block ATM Card(press 6)"
 						+ "\n7. NetBanking Service Activation(press 7)"
+						+ "\n8. Login to NetBanking Service(press 8)"
+						+ "\n9. Block NetBanking Service(press 9)"
 						+ "\nEnter your choice: "); 
 				i = sc.nextInt();
 				sc.nextLine();
@@ -131,6 +133,12 @@ public class AccountView {
 					break;
 				case 7:
 					netbankingview.newNetBankingView(sc, account);
+					break;
+				case 8:
+					netbankingview.loginNetBankingView(sc, account.getNetBanking());
+					break;
+				case 9:
+					netbankingview.deactivateNetBankingView(sc, account);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
@@ -160,9 +168,9 @@ public class AccountView {
 				System.out.print("\nNote: ATM card issued on this account");
 			
 			if(account.getNetBanking() == null)
-				System.out.println("\nNote: NetBanking facility is not issued on this account");
+				System.out.println("\nNote: NetBanking facility is not activated on this account");
 			else
-				System.out.println("\nNote: NetBanking facility is issued on this account");
+				System.out.println("\nNote: NetBanking facility is activated on this account");
 			
 		} else {
 		    System.out.println("Warning! Your Account Got Deactivated!");

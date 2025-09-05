@@ -64,4 +64,47 @@ public class NetBankingDAO {
 		else
 			return null;
 	}
+
+	// Deactivate NetBanking
+	public void deactivateNetBankingDAO(int banking_id) throws SQLException {
+		String sql = "DELETE FROM netbanking WHERE banking_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setInt(1, banking_id);
+        
+        ps.executeUpdate();
+	}
+
+	// Update NetBanking Password
+	public void updatePasswordDAO(NetBanking netbanking, String password) throws SQLException {
+		String sql = "UPDATE netbanking SET user_password = ? WHERE banking_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setString(1, password);
+        ps.setInt(2, netbanking.getBanking_id());
+        
+        ps.executeUpdate();
+	}
+
+	// Update NetBanking UserName
+	public void updateUserNameDAO(NetBanking netbanking, String username) throws SQLException {
+		String sql = "UPDATE netbanking SET username = ? WHERE banking_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setString(1, username);
+        ps.setInt(2, netbanking.getBanking_id());
+        
+        ps.executeUpdate();
+	}
+
+	// Change NetBanking Pincode
+	public void updatePincodeDAO(NetBanking netbanking, String pincode) throws SQLException {
+		String sql = "UPDATE netbanking SET pincode = ? WHERE banking_id = ?";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        
+        ps.setString(1, pincode);
+        ps.setInt(2, netbanking.getBanking_id());
+        
+        ps.executeUpdate();
+	}
 }

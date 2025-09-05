@@ -32,4 +32,45 @@ public class NetBankingController {
 			}
 		}
 	}
+
+	// Deactivate NetBanking
+	public void deactivateNetBanking(Account account) {
+		try {
+			netbankingservice.deactivateNetBankingService(account);
+			System.out.println("\nNetBanking Deactivated Successfully!");
+		} catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
+
+	// Change NetBanking Password 
+	public void changePassword(NetBanking netbanking, String password) {
+		try {
+			netbankingservice.changePasswordService(netbanking, password);
+			System.out.println("\nNetBanking Password Updated Successfully!");
+		} catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
+
+	// Change NetBanking UserName
+	public void changeUserName(NetBanking netbanking, String username, String password) {
+		try {
+			netbankingservice.changeUserNameService(netbanking, username);
+			netbankingservice.changePasswordService(netbanking, password);
+			System.out.println("\nNetBanking UserName & Password Updated Successfully!");
+		} catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
+
+	// Change NetBanking Pincode
+	public void changePincode(NetBanking netbanking, String pincode) {
+		try {
+			netbankingservice.changePincodeService(netbanking, pincode);
+			System.out.println("\nNetbanking PinCode changed Successfully!");
+		}catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
 }
