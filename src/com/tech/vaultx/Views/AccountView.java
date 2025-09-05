@@ -126,7 +126,7 @@ public class AccountView {
 					atmView.atmDetailsView(sc, account);
 					break;
 				case 5:
-					atmView.atmFuncView(sc, account.getAtm());
+					atmView.atmFuncView(sc, account);
 					break;
 				case 6:
 					atmView.blockCardView(sc, account);

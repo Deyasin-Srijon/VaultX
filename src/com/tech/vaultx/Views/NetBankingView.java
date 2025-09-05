@@ -89,6 +89,7 @@ public class NetBankingView {
 						+ "\n2. Change NetBanking UserName(press 2)"
 						+ "\n3. Change NetBanking Pincode(press 3)"
 						+ "\n4. Fund Transfer(press 4)"
+						+ "\n5. Check Bank Balance(press 5)"
 						+ "\nEnter your choice: "); 
 				i = sc.nextInt();
 				sc.nextLine();
@@ -105,6 +106,9 @@ public class NetBankingView {
 					break;
 				case 4:
 					netbankingview.fundTransferview(sc, account, netbanking);
+					break;
+				case 5:
+					netbankingview.bankBalanceView(sc, account);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
@@ -250,11 +254,31 @@ public class NetBankingView {
 						netbankingcontroller.fundTransfer(amount, acc_no, account);
 					}
 				} else {
-					System.out.println("\nAccount No. can't same as Your Account No.");
+					System.out.println("Error: Can't Proceed Fund Transfer. Not Enough amount on Account!");
 				}
 			}
 		} else {
-			System.out.println("Error: Can't Proceed Fund Transfer. Not Enough amount on Account!");
+			System.out.println("\nAccount No. can't same as Your Account No.");
+		}
+	}
+	
+	// Check Bank Balance View
+	public void bankBalanceView(Scanner sc, Account account) {
+		int count = 0;
+		while(count < 3) {
+			System.out.print("\nEnter pincode: ");
+			String pincode = sc.nextLine();
+			if(pincode.equals(account.getNetBanking().getPincode()))
+				break;
+			else
+				System.out.println("\nWarning! Wrong Password Given");
+			count++;
+		}
+		if(count >= 3) {
+			System.out.println("\nYou have exited 3 attempts. Try later!");
+		}
+		else {
+			System.out.println("\nThe Amount is: " + account.getAmount());
 		}
 	}
 }

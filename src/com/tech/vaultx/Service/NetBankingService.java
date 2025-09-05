@@ -50,6 +50,6 @@ public class NetBankingService {
 	public void updateAmountService(BigDecimal amount, String receiverAccNo, String senderAccNo) throws SQLException {
 		transactionDAO.updateDebitAmountDAO(amount, senderAccNo);
 		transactionDAO.updateCreditAmountDAO(amount, receiverAccNo);
-		transactionDAO.insertTransaction(amount, senderAccNo, receiverAccNo);
+		transactionDAO.insertTransaction(amount, senderAccNo, receiverAccNo, "Netbanking");
 	}
 }

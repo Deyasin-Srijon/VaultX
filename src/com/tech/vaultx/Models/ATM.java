@@ -1,6 +1,6 @@
 package com.tech.vaultx.Models;
 
-public class ATM {
+public class ATM implements Comparable<ATM>{
 	private int atm_id;
     private String card_no;
     private String cvv;
@@ -11,11 +11,14 @@ public class ATM {
     public ATM(String pincode) {
     	this.pincode = pincode;
     }
-	public ATM(int atm_id, String card_no, String cvv, String exp_date, String pincode) {
-		this.atm_id = atm_id;
-		this.card_no = card_no;
+    public ATM(String card_no, String cvv, String exp_date) {
+    	this.card_no = card_no;
 		this.cvv = cvv;
 		this.exp_date = exp_date;
+    }
+	public ATM(int atm_id, String card_no, String cvv, String exp_date, String pincode) {
+		this(card_no, cvv, exp_date);
+		this.atm_id = atm_id;
 		this.pincode = pincode;
 	}
 
@@ -53,5 +56,13 @@ public class ATM {
 	}
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
+	}
+	
+	@Override
+	public int compareTo(ATM atm) {
+		if(atm.getCard_no().equals(this.getCard_no()) && atm.getCvv().equals(this.getCvv()) && atm.getExp_date().equals(this.getExp_date()))
+			return 1;
+		else
+			return 0;
 	}
 }

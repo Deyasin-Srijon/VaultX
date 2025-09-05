@@ -1,16 +1,19 @@
 package com.tech.vaultx.Service;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import com.tech.vaultx.Dao.ATMDAO;
+import com.tech.vaultx.Dao.TransactionDAO;
 import com.tech.vaultx.Models.ATM;
 import com.tech.vaultx.Models.Account;
 import com.tech.vaultx.Util.RandomNoGenerator;
 
 public class ATMService {
 	private ATMDAO atmDAO = new ATMDAO();
+	private TransactionDAO transactionDAO = new TransactionDAO();
 
 	// New Card Issue Service
 	public void issueNewCardService(ATM atm, Account account) throws SQLException {
@@ -50,5 +53,17 @@ public class ATMService {
 	public void changePincodeService(ATM atm, String pincode) throws SQLException {
 		atmDAO.updatePincodeDAO(atm, pincode);
 		atm.setPincode(pincode);
+	}
+
+	// Update Amount after cash WithDraw
+	public void updateWithdrawAmountService(BigDecimal amount, String account_no) throws SQLException {
+		transactionDAO.updateDebitAmountDAO(amount, account_no);
+		transactionDAO.insertTransaction(amount, account_no, null, "ATM");
+	}
+	
+	// Update Amount after cash Deposit
+	public void updateDepositAmountService(BigDecimal amount, String account_no) throws SQLException {
+		transactionDAO.updateCreditAmountDAO(amount, account_no);
+		transactionDAO.insertTransaction(amount, null, account_no, "ATM");
 	}
 }

@@ -1,5 +1,6 @@
 package com.tech.vaultx.Views;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 import com.tech.vaultx.Controllers.ATMController;
@@ -72,8 +73,8 @@ public class ATMView {
 	}
 
 	// ATM functionality view
-	public void atmFuncView(Scanner sc, ATM atm) {
-		if(atm == null)
+	public void atmFuncView(Scanner sc, Account account) {
+		if(account.getAtm() == null)
 			System.out.println("Note: ATM Card is not issued on this Account");
 		else {
 			System.out.println("\nWelcome to VaultX ATM Service");
@@ -84,13 +85,21 @@ public class ATMView {
 			
 			do {
 				System.out.print("\n1. Change Pin Code(press 1)"
+						+ "\n2. WithDraw Cash(press 2)"
+						+ "\n3. Deposit Cash(press 3)"
 						+ "\nEnter your choice: "); 
 				i = sc.nextInt();
 				sc.nextLine();
 				
 				switch(i) {
 				case 1:
-					atmView.changeATMPinView(sc, atm);
+					atmView.changeATMPinView(sc, account.getAtm());
+					break;
+				case 2:
+					atmView.cashWithDrawView(sc, account);
+					break;
+				case 3:
+					atmView.cashDepositView(sc, account);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
@@ -119,5 +128,95 @@ public class ATMView {
 			}
 		}
 		atmController.changePincode(atm, pincode);
+	}
+	
+	// WithDraw Cash View
+	public void cashWithDrawView(Scanner sc, Account account) {
+		System.out.print("Enter your Card No: ");
+		String cardno = sc.nextLine();
+		System.out.print("Enter CVV: ");
+		String cvv = sc.nextLine();
+		System.out.print("Enter Expiry Date: ");
+		String expdate = sc.nextLine();
+		
+		ATM atm = new ATM(cardno, cvv, expdate);
+		
+		while(true) {
+			if(atm.compareTo(account.getAtm()) == 0) {
+				System.out.println("\nWarning! Please enter correct Card Details");
+			}
+			else {
+				System.out.print("\nEnter Amount: ");
+				String input = sc.nextLine();
+				BigDecimal amount = new BigDecimal(input);
+				
+				if(amount.compareTo(account.getAmount()) <= 0) {
+					int count = 0;
+					String pincode = "";
+					while(count < 3) {
+						System.out.print("\nEnter pincode for withdraw cash: ");
+						pincode = sc.nextLine();
+						if(pincode.equals(account.getAtm().getPincode()))
+							break;
+						else
+							System.out.println("\nWarning! Wrong Password Given");
+						count++;
+					}
+					if(count >= 3) {
+						System.out.println("\nYou have exited 3 attempts. Try later!");
+					}
+					else {
+						account.setAmount(account.getAmount().subtract(amount));
+						atmController.cashWithDrawService(amount, account.getAccount_no());
+					}
+				} else {
+					System.out.println("Error: Can't WithDraw Cash. Not Enough amount on Account!");
+				}
+				break;
+			}
+		}
+	}
+	
+	// Deposit Cash View
+	public void cashDepositView(Scanner sc, Account account) {
+		System.out.print("Enter your Card No: ");
+		String cardno = sc.nextLine();
+		System.out.print("Enter CVV: ");
+		String cvv = sc.nextLine();
+		System.out.print("Enter Expiry Date: ");
+		String expdate = sc.nextLine();
+			
+		ATM atm = new ATM(cardno, cvv, expdate);
+			
+		while(true) {
+			if(atm.compareTo(account.getAtm()) == 0) {
+				System.out.println("\nWarning! Please enter correct Card Details");
+			}
+			else {
+				System.out.print("\nEnter Amount: ");
+				String input = sc.nextLine();
+				BigDecimal amount = new BigDecimal(input);
+					
+				int count = 0;
+				String pincode = "";
+				while(count < 3) {
+					System.out.print("\nEnter pincode for deposit cash: ");
+					pincode = sc.nextLine();
+					if(pincode.equals(account.getAtm().getPincode()))
+						break;
+					else
+						System.out.println("\nWarning! Wrong Password Given");
+					count++;
+				}
+				if(count >= 3) {
+					System.out.println("\nYou have exited 3 attempts. Try later!");
+				}
+				else {
+					account.setAmount(account.getAmount().add(amount));
+					atmController.cashDepositService(amount, account.getAccount_no());
+				}
+				break;
+			}
+		}
 	}
 }

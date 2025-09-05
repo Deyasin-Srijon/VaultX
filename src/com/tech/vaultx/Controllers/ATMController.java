@@ -1,5 +1,7 @@
 package com.tech.vaultx.Controllers;
 
+import java.math.BigDecimal;
+
 import com.tech.vaultx.Models.ATM;
 import com.tech.vaultx.Models.Account;
 import com.tech.vaultx.Service.ATMService;
@@ -52,6 +54,26 @@ public class ATMController {
 			atmService.changePincodeService(atm, pincode);
 			System.out.println("\nATM Card PinCode changed Successfully!");
 		}catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
+
+	// WithDraw Cash
+	public void cashWithDrawService(BigDecimal amount, String account_no) {
+		try {
+			atmService.updateWithdrawAmountService(amount, account_no);
+			System.out.println("\nCash WithDraw Successful!");
+		} catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
+	
+	// Deposit Cash
+	public void cashDepositService(BigDecimal amount, String account_no) {
+		try {
+			atmService.updateDepositAmountService(amount, account_no);
+			System.out.println("\nCash Deposit Successful!");
+		} catch(Exception e) {
 			System.out.print("Error: " + e.getMessage());
 		}
 	}
