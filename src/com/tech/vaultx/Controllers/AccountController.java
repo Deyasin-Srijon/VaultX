@@ -62,6 +62,15 @@ public class AccountController {
 			return false;
 		}
 	}
+	
+	public boolean isExistAccount(String acc_no) {
+		try {
+			return accountservice.checkAccountService(acc_no);
+		} catch(Exception e) {
+			System.out.println("Error: " + e.getMessage());
+			return false;
+		}
+	}
 
 	// Close a User Bank Account
 	public void deleteAccount(long userId, String accNo, String accPassword) {

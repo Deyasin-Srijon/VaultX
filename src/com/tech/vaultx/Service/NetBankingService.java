@@ -1,13 +1,16 @@
 package com.tech.vaultx.Service;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
 
 import com.tech.vaultx.Dao.NetBankingDAO;
+import com.tech.vaultx.Dao.TransactionDAO;
 import com.tech.vaultx.Models.Account;
 import com.tech.vaultx.Models.NetBanking;
 
 public class NetBankingService {
 	private NetBankingDAO netbankingDAO = new NetBankingDAO();
+	private TransactionDAO transactionDAO = new TransactionDAO();
 
 	// Register New NetBanking Service
 	public void registerNetBankingService(NetBanking netbanking, Account account) throws SQLException {
@@ -41,5 +44,12 @@ public class NetBankingService {
 	public void changePincodeService(NetBanking netbanking, String pincode) throws SQLException {
 		netbankingDAO.updatePincodeDAO(netbanking, pincode);
 		netbanking.setPincode(pincode);
+	}
+
+	// Update amount after Transaction
+	public void updateAmountService(BigDecimal amount, String receiverAccNo, String senderAccNo) throws SQLException {
+		transactionDAO.updateDebitAmountDAO(amount, senderAccNo);
+		transactionDAO.updateCreditAmountDAO(amount, receiverAccNo);
+		transactionDAO.insertTransaction(amount, senderAccNo, receiverAccNo);
 	}
 }

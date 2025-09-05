@@ -49,6 +49,13 @@ public class AccountService {
 		return accountDAO.checkAccountExistDAO(userId);
 	}
 
+	public boolean checkAccountService(String acc_no) throws SQLException {
+		if (!accountDAO.checkAccountExistDAO(acc_no)) {
+    		throw new IllegalArgumentException("Bank Account not found. Please provide correct account no.");
+    	}
+		return accountDAO.checkAccountExistDAO(acc_no);
+	}
+
 	// Close an Account for a User
 	public void deleteAccountService(long userId, String accNo, String accPassword) throws SQLException {
 		new AccountService().validateAccount(userId, accNo, accPassword);

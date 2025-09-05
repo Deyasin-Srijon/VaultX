@@ -1,23 +1,25 @@
 package com.tech.vaultx.Models;
 
-public class NetBanking {
+public class NetBanking implements Comparable<NetBanking> {
 	int banking_id;
     String username;
     String user_password;
     String pincode;
     
-    
-	public NetBanking(String username, String user_password, String pincode) {
-		this.username = username;
+    public NetBanking(String username, String user_password) {
+    	this.username = username;
 		this.user_password = user_password;
+	}
+	public NetBanking(String username, String user_password, String pincode) {
+		this(username, user_password);
 		this.pincode = pincode;
 	}
 	public NetBanking(int banking_id, String username, String user_password, String pincode) {
 		this(username, user_password, pincode);
 		this.banking_id = banking_id;
 	}
-
-
+	
+	
 	public int getBanking_id() {
 		return banking_id;
 	}
@@ -44,5 +46,13 @@ public class NetBanking {
 	}
 	public void setPincode(String pincode) {
 		this.pincode = pincode;
+	}
+	
+	@Override
+	public int compareTo(NetBanking netbanking) {
+		if(netbanking.getUsername().equals(this.getUsername()) && netbanking.getUser_password().equals(this.getUser_password()))
+			return 1;
+		else
+			return 0;
 	}
 }

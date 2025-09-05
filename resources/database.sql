@@ -65,10 +65,10 @@ CREATE TABLE accounts (
 CREATE TABLE transaction_entries (
     entry_id BIGINT PRIMARY KEY AUTO_INCREMENT,
     transaction_id BIGINT NOT NULL,
-    account_id BIGINT NOT NULL,
+    account_no varchar(10) NOT NULL,
     entry_type ENUM('debit', 'credit') NOT NULL,
     tran_mode ENUM('Netbanking', 'ATM') NOT NULL,
     amount DECIMAL(10,2) NOT NULL,
     FOREIGN KEY (transaction_id) REFERENCES transactions(transaction_id) ON DELETE CASCADE,
-    FOREIGN KEY (account_id) REFERENCES accounts(acc_id) ON DELETE CASCADE
+    FOREIGN KEY (account_no) REFERENCES accounts(account_no) ON DELETE CASCADE
 );

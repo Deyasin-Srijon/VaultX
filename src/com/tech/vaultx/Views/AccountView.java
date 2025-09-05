@@ -135,7 +135,7 @@ public class AccountView {
 					netbankingview.newNetBankingView(sc, account);
 					break;
 				case 8:
-					netbankingview.loginNetBankingView(sc, account.getNetBanking());
+					netbankingview.loginNetBankingView(sc, account, account.getNetBanking());
 					break;
 				case 9:
 					netbankingview.deactivateNetBankingView(sc, account);

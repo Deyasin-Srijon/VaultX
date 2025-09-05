@@ -1,7 +1,9 @@
 package com.tech.vaultx.Views;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
+import com.tech.vaultx.Controllers.AccountController;
 import com.tech.vaultx.Controllers.NetBankingController;
 import com.tech.vaultx.CustomExceptions.WeakPasswordException;
 import com.tech.vaultx.Models.Account;
@@ -11,6 +13,7 @@ import com.tech.vaultx.Util.PasswordValidator;
 
 public class NetBankingView {
 	private NetBankingController netbankingcontroller = new NetBankingController();
+	private AccountController accountcontroller = new AccountController();
 	
 	// NetBanking Service Register View
 	public void newNetBankingView(Scanner sc, Account account) {
@@ -55,7 +58,7 @@ public class NetBankingView {
 	}
 	
 	// Login to NetBanking Service
-	public void loginNetBankingView(Scanner sc, NetBanking netbanking) {
+	public void loginNetBankingView(Scanner sc, Account account, NetBanking netbanking) {
 		if(netbanking == null)
 			System.out.println("Note: NetBanking Service not available on this Account");
 		else {
@@ -67,7 +70,9 @@ public class NetBankingView {
 				System.out.print("Enter Password: ");
 				String password = sc.nextLine();
 				
-				if(username.equals(netbanking.getUsername()) && password.equals(netbanking.getUser_password())) {
+				NetBanking n = new NetBanking(username, password);
+				
+				if(n.compareTo(netbanking) == 1) {
 					break;
 				} else {
 					System.out.println("Warning: Please Enter Correct Password & UserName");
@@ -83,6 +88,7 @@ public class NetBankingView {
 				System.out.print("\n1. Change NetBanking Password(press 1)"
 						+ "\n2. Change NetBanking UserName(press 2)"
 						+ "\n3. Change NetBanking Pincode(press 3)"
+						+ "\n4. Fund Transfer(press 4)"
 						+ "\nEnter your choice: "); 
 				i = sc.nextInt();
 				sc.nextLine();
@@ -96,6 +102,9 @@ public class NetBankingView {
 					break;
 				case 3:
 					netbankingview.changePincodeView(sc, netbanking);
+					break;
+				case 4:
+					netbankingview.fundTransferview(sc, account, netbanking);
 					break;
 				default:
 					System.out.println("Sorry! Wrong choice given");
@@ -207,6 +216,45 @@ public class NetBankingView {
 					System.out.println("Warning: Please Enter Correct Password");
 				}
 			}
+		}
+	}
+	
+	// FundTransfer View
+	private void fundTransferview(Scanner sc, Account account, NetBanking netbanking) {
+		System.out.print("\nEnter Account No. to Fund Transfer: ");
+		String acc_no = sc.nextLine();
+		
+		if(!acc_no.equals(account.getAccount_no())) {
+			if(accountcontroller.isExistAccount(acc_no)) {
+				System.out.print("\nEnter Amount: ");
+				String input = sc.nextLine();
+				BigDecimal amount = new BigDecimal(input);
+				
+				if(amount.compareTo(account.getAmount()) <= 0) {
+					int count = 0;
+					String pincode = "";
+					while(count < 3) {
+						System.out.print("\nEnter pincode for payment: ");
+						pincode = sc.nextLine();
+						if(pincode.equals(netbanking.getPincode()))
+							break;
+						else
+							System.out.println("\nWarning! Wrong Password Given");
+						count++;
+					}
+					if(count >= 3) {
+						System.out.println("\nYou have exited 3 attempts. Try later!");
+					}
+					else {
+						account.setAmount(account.getAmount().subtract(amount));
+						netbankingcontroller.fundTransfer(amount, acc_no, account);
+					}
+				} else {
+					System.out.println("\nAccount No. can't same as Your Account No.");
+				}
+			}
+		} else {
+			System.out.println("Error: Can't Proceed Fund Transfer. Not Enough amount on Account!");
 		}
 	}
 }

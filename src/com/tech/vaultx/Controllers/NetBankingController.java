@@ -1,5 +1,7 @@
 package com.tech.vaultx.Controllers;
 
+import java.math.BigDecimal;
+
 import com.tech.vaultx.Models.Account;
 import com.tech.vaultx.Models.NetBanking;
 import com.tech.vaultx.Service.NetBankingService;
@@ -70,6 +72,16 @@ public class NetBankingController {
 			netbankingservice.changePincodeService(netbanking, pincode);
 			System.out.println("\nNetbanking PinCode changed Successfully!");
 		}catch(Exception e) {
+			System.out.print("Error: " + e.getMessage());
+		}
+	}
+
+	// Fund Transfer functionality
+	public void fundTransfer(BigDecimal amount, String acc_no, Account account) {
+		try {
+			netbankingservice.updateAmountService(amount, acc_no, account.getAccount_no());
+			System.out.println("\nTransaction Successful!");
+		} catch(Exception e) {
 			System.out.print("Error: " + e.getMessage());
 		}
 	}

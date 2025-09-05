@@ -133,6 +133,18 @@ public class AccountDAO {
         
         return rs.next();
 	}
+	
+	public boolean checkAccountExistDAO(String acc_no) throws SQLException {
+		String sql = "SELECT * FROM accounts WHERE account_no = ?";
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, acc_no);
+        
+        ResultSet rs = ps.executeQuery();
+        
+        return rs.next();
+	}
+	
 
 	// Delete a Bank Account
 	public void deleteAccountDAO(long userId, String accNo, String password) throws SQLException {
